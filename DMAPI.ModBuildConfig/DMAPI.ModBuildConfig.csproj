@@ -17,11 +17,19 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/TWT233/DMAPI.git</RepositoryUrl>
-        <IncludeBuildOutput>false</IncludeBuildOutput>      
+        <IncludeBuildOutput>false</IncludeBuildOutput>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.14.28" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core"/>
+        <PackageReference Include="Microsoft.Win32.Registry"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None PackagePath="README.md" Include="README.md" Pack="true"/>
+        <None PackagePath="build/" Include="build/find-game-folder.targets" Link="build\find-game-folder.targets" Pack="true"/>
+        <None PackagePath="build/DMAPI.ModBuildConfig.dll" Include="$(OutputPath)\$(AssemblyName).dll" Pack="true"/>
+        <None PackagePath="build/TWT233.DMAPI.ModBuildConfig.targets" Include="build\mod-build-config.targets" Pack="true"/>
     </ItemGroup>
 
 </Project>

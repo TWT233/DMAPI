@@ -1,0 +1,37 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    
+    <PropertyGroup>
+        <!-- enable line numbers in stack traces (needs to embedded for Linux/macOS: https://github.com/dotnet/runtime/issues/39987) -->
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <!-- Add references to Duckov assemblies -->
+    <Import Project="find-game-folder.targets"/>
+    <PropertyGroup>
+        <DllSubPath>\Duckov_Data\Managed\</DllSubPath>
+        <DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed/</DllSubPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="$(GamePath)$(DllSubPath)TeamSoda.*"/>
+        <Reference Include="$(GamePath)$(DllSubPath)ItemStatsSystem.dll"/>
+        <Reference Include="$(GamePath)$(DllSubPath)Unity*"/>
+    </ItemGroup>
+
+
+    <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
+    <!-- Check OS -->
+    <Target Name="BeforeBuild">
+        <!-- invalid game path -->
+        <Error Condition="!Exists('$(GamePath)')" Text="'The mod build package can't find your game folder. Please pass it in your .csporj'" ContinueOnError="false"/>
+    </Target>
+
+
+    <!--*********************************************
+    ** Deploy mod files & create release zip
+    **********************************************-->
+    <Target Name="AfterBuild">
+        <DeployModTask/>
+    </Target>
+
+</Project>

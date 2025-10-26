@@ -1,0 +1,1 @@
+# DMAPI.ModBuildConfig
