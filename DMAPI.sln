@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMAPI", "DMAPI\DMAPI.csproj", "{AE13CB01-FDAC-49BA-9053-984555C724EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMAPI.ModBuildConfig", "DMAPI.ModBuildConfig\DMAPI.ModBuildConfig.csproj", "{35724582-C04B-413E-8AC9-D54032E983A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE13CB01-FDAC-49BA-9053-984555C724EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE13CB01-FDAC-49BA-9053-984555C724EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE13CB01-FDAC-49BA-9053-984555C724EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE13CB01-FDAC-49BA-9053-984555C724EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35724582-C04B-413E-8AC9-D54032E983A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35724582-C04B-413E-8AC9-D54032E983A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35724582-C04B-413E-8AC9-D54032E983A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35724582-C04B-413E-8AC9-D54032E983A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
