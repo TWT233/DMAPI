@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DMAPI
+﻿namespace DMAPI
 {
     public class Class1
     {

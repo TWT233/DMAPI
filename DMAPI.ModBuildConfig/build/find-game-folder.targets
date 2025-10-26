@@ -1,11 +1,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    
+
     <!-- Check OS -->
     <PropertyGroup>
         <OS Condition="$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))">Windows</OS>
         <OS Condition="$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))">OSX</OS>
     </PropertyGroup>
-    
+
     <!-- Find game folder -->
     <Choose>
         <When Condition="$(OS) == 'OSX'">
@@ -13,7 +13,7 @@
                 <GamePath Condition="!Exists('$(GamePath)')">$(HOME)/Library/Application Support/Steam/steamapps/common/Escape from Duckov</GamePath>
             </PropertyGroup>
         </When>
-        <When Condition="$(OS) == 'Windows_NT'">
+        <When Condition="$(OS) == 'Windows'">
             <PropertyGroup>
                 <!-- registry paths -->
                 <GamePath Condition="!Exists('$(GamePath)')">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 3167020', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32))</GamePath>

@@ -10,7 +10,7 @@
         <!--NuGet package-->
         <PackageId>TWT233.DMAPI.ModBuildConfig</PackageId>
         <Title>Build package for Duckov mods</Title>
-        <Version>0.0.1</Version>
+        <Version>0.0.4</Version>
         <Authors>TWT233</Authors>
         <Description>Automates the configuration/building of Duckov mods.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>

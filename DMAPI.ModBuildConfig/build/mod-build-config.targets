@@ -1,37 +1,47 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    
+
+    <!-- Common Properties-->
     <PropertyGroup>
         <!-- enable line numbers in stack traces (needs to embedded for Linux/macOS: https://github.com/dotnet/runtime/issues/39987) -->
         <DebugSymbols>true</DebugSymbols>
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
-    <!-- Add references to Duckov assemblies -->
     <Import Project="find-game-folder.targets"/>
+
+    <!-- Add references to Duckov assemblies -->
     <PropertyGroup>
-        <DllSubPath>\Duckov_Data\Managed\</DllSubPath>
-        <DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed/</DllSubPath>
+        <DllSubPath>\Duckov_Data\Managed</DllSubPath>
+        <DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed</DllSubPath>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="$(GamePath)$(DllSubPath)TeamSoda.*"/>
-        <Reference Include="$(GamePath)$(DllSubPath)ItemStatsSystem.dll"/>
-        <Reference Include="$(GamePath)$(DllSubPath)Unity*"/>
+        <Reference Include="$(GamePath)$(DllSubPath)/TeamSoda.*"/>
+        <Reference Include="$(GamePath)$(DllSubPath)/ItemStatsSystem.dll"/>
+        <Reference Include="$(GamePath)$(DllSubPath)/Unity*"/>
     </ItemGroup>
 
+    <!-- Deploy mod in the local game-->
+    <PropertyGroup>
+        <ModDllName Condition="'$(ModDllName)' == ''">$(TargetName)</ModDllName>
+        <ModFolderName Condition="'$(ModFolderName)' == ''">$(MSBuildProjectName)</ModFolderName>
+
+        <ModsSubPath>\Duckov_Data\Mods</ModsSubPath>
+        <ModsSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Mods</ModsSubPath>
+        <GameModsDir Condition="'$(GameModsDir)' == ''">$(GamePath)$(ModsSubPath)</GameModsDir>
+    </PropertyGroup>
 
     <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
-    <!-- Check OS -->
-    <Target Name="BeforeBuild">
+    <Target Name="DeployMod" AfterTargets="Build">
         <!-- invalid game path -->
         <Error Condition="!Exists('$(GamePath)')" Text="'The mod build package can't find your game folder. Please pass it in your .csporj'" ContinueOnError="false"/>
-    </Target>
 
-
-    <!--*********************************************
-    ** Deploy mod files & create release zip
-    **********************************************-->
-    <Target Name="AfterBuild">
-        <DeployModTask/>
+        <DeployModTask
+                ModDllName="$(ModDllName)"
+                ModFolderName="$(ModFolderName)"
+                GameModsDir="$(GameModsDir)"
+                ProjectDir="$(MSBuildProjectDirectory)"
+                TargetDir="$(TargetDir)"
+        />
     </Target>
 
 </Project>
