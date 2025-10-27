@@ -7,32 +7,20 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
-    <Import Project="find-game-folder.targets"/>
+    <Import Project="derive-game-dirs.targets"/>
 
     <!-- Add references to Duckov assemblies -->
-    <PropertyGroup>
-        <DllSubPath>\Duckov_Data\Managed</DllSubPath>
-        <DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed</DllSubPath>
-    </PropertyGroup>
     <ItemGroup>
-        <Reference Include="$(GameDir)$(DllSubPath)/TeamSoda.*"/>
-        <Reference Include="$(GameDir)$(DllSubPath)/ItemStatsSystem.dll"/>
-        <Reference Include="$(GameDir)$(DllSubPath)/Unity*"/>
+        <Reference Include="$(GameDllDir)/TeamSoda.*"/>
+        <Reference Include="$(GameDllDir)/ItemStatsSystem.dll"/>
+        <Reference Include="$(GameDllDir)/Unity*"/>
     </ItemGroup>
 
     <!-- Deploy mod in the local game-->
-    <PropertyGroup>
-        <ModDllName Condition="'$(ModDllName)' == ''">$(TargetName)</ModDllName>
-
-        <ModsSubPath>\Duckov_Data\Mods</ModsSubPath>
-        <ModsSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Mods</ModsSubPath>
-        <GameModsDir Condition="'$(GameModsDir)' == ''">$(GameDir)$(ModsSubPath)</GameModsDir>
-    </PropertyGroup>
-
     <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
     <Target Name="DeployMod" AfterTargets="Build">
         <DeployModTask
-                ModDllName="$(ModDllName)"
+                ModDllName="$(TargetName)"
                 GameModsDir="$(GameModsDir)"
                 ProjectDir="$(MSBuildProjectDirectory)"
                 TargetDir="$(TargetDir)"

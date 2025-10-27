@@ -6,7 +6,7 @@
         <OS Condition="$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))">OSX</OS>
     </PropertyGroup>
 
-    <!-- Find game folder -->
+    <!-- Find game -->
     <Choose>
         <When Condition="$(OS) == 'OSX'">
             <PropertyGroup>
@@ -24,4 +24,19 @@
             </PropertyGroup>
         </When>
     </Choose>
+
+    <!-- Derive dll dir -->
+    <PropertyGroup>
+        <_DllSubPath>\Duckov_Data\Managed</_DllSubPath>
+        <_DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed</_DllSubPath>
+        <GameDllDir Condition="!Exists('$(GameDllDir)')">$(GameDir)$(_DllSubPath)</GameDllDir>
+    </PropertyGroup>
+    
+    <!-- Derive mod dir -->
+    <PropertyGroup>
+        <_ModsSubPath>\Duckov_Data\Mods</_ModsSubPath>
+        <_ModsSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Mods</_ModsSubPath>
+        <GameModsDir Condition="!Exists('$(GameModsDir)')">$(GameDir)$(_ModsSubPath)</GameModsDir>
+    </PropertyGroup>
+
 </Project>

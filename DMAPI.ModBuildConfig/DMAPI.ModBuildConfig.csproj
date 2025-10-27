@@ -10,7 +10,7 @@
         <!--NuGet package-->
         <PackageId>TWT233.DMAPI.ModBuildConfig</PackageId>
         <Title>Build package for Duckov mods</Title>
-        <Version>0.0.7</Version>
+        <Version>0.0.9</Version>
         <Authors>TWT233</Authors>
         <Description>Automates the configuration/building of Duckov mods.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -27,7 +27,9 @@
 
     <ItemGroup>
         <None PackagePath="README.md" Include="README.md" Pack="true"/>
-        <None PackagePath="build/" Include="build/find-game-folder.targets" Link="build\find-game-folder.targets" Pack="true"/>
+        <None PackagePath="build/" Include="build\derive-game-dirs.targets" Pack="true">
+          <Link>build/derive-game-dirs.targets</Link>
+        </None>
         <None PackagePath="build/DMAPI.ModBuildConfig.dll" Include="$(OutputPath)\$(AssemblyName).dll" Pack="true"/>
         <None PackagePath="build/TWT233.DMAPI.ModBuildConfig.targets" Include="build\mod-build-config.targets" Pack="true"/>
     </ItemGroup>
