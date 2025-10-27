@@ -10,17 +10,17 @@
     <Choose>
         <When Condition="$(OS) == 'OSX'">
             <PropertyGroup>
-                <GamePath Condition="!Exists('$(GamePath)')">$(HOME)/Library/Application Support/Steam/steamapps/common/Escape from Duckov</GamePath>
+                <GameDir Condition="!Exists('$(GameDir)')">$(HOME)/Library/Application Support/Steam/steamapps/common/Escape from Duckov</GameDir>
             </PropertyGroup>
         </When>
         <When Condition="$(OS) == 'Windows'">
             <PropertyGroup>
                 <!-- registry paths -->
-                <GamePath Condition="!Exists('$(GamePath)')">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 3167020', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32))</GamePath>
+                <GameDir Condition="!Exists('$(GameDir)')">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 3167020', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32))</GameDir>
 
                 <!-- derive from Steam library path -->
                 <_SteamLibraryPath>$([MSBuild]::GetRegistryValueFromView('HKEY_CURRENT_USER\SOFTWARE\Valve\Steam', 'SteamPath', null, RegistryView.Registry32))</_SteamLibraryPath>
-                <GamePath Condition="!Exists('$(GamePath)') AND '$(_SteamLibraryPath)' != ''">$(_SteamLibraryPath)\steamapps\common\Escape from Duckov</GamePath>
+                <GameDir Condition="!Exists('$(GameDir)') AND '$(_SteamLibraryPath)' != ''">$(_SteamLibraryPath)\steamapps\common\Escape from Duckov</GameDir>
             </PropertyGroup>
         </When>
     </Choose>

@@ -13,10 +13,6 @@ public class DeployModTask : Task
     [Required]
     public string ModDllName { get; set; }
 
-    /// <summary>The name of the mod folder.</summary>
-    [Required]
-    public string ModFolderName { get; set; }
-
     /// <summary>The folder containing the game's mod folders.</summary>
     [Required]
     public string GameModsDir { get; set; }
@@ -34,7 +30,7 @@ public class DeployModTask : Task
         try
         {
             // ensure target folder
-            Directory.CreateDirectory(GameModsDir + "/" + ModFolderName);
+            Directory.CreateDirectory(GameModsDir + "/" + ModDllName);
 
             var ok = GetFilesNeedCopy(out var filePairs);
             if (!ok)
@@ -56,7 +52,7 @@ public class DeployModTask : Task
 
     private bool GetFilesNeedCopy(out IEnumerable<(string, string)> filePairs)
     {
-        var dstDir = Path.Combine(GameModsDir, ModFolderName);
+        var dstDir = Path.Combine(GameModsDir, ModDllName);
         filePairs = [];
 
         var dllPath = Path.Combine(TargetDir, ModDllName + ".dll");

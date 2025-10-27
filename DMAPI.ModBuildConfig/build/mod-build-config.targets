@@ -15,29 +15,27 @@
         <DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed</DllSubPath>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="$(GamePath)$(DllSubPath)/TeamSoda.*"/>
-        <Reference Include="$(GamePath)$(DllSubPath)/ItemStatsSystem.dll"/>
-        <Reference Include="$(GamePath)$(DllSubPath)/Unity*"/>
+        <Reference Include="$(GameDir)$(DllSubPath)/TeamSoda.*"/>
+        <Reference Include="$(GameDir)$(DllSubPath)/ItemStatsSystem.dll"/>
+        <Reference Include="$(GameDir)$(DllSubPath)/Unity*"/>
     </ItemGroup>
 
     <!-- Deploy mod in the local game-->
     <PropertyGroup>
         <ModDllName Condition="'$(ModDllName)' == ''">$(TargetName)</ModDllName>
-        <ModFolderName Condition="'$(ModFolderName)' == ''">$(MSBuildProjectName)</ModFolderName>
 
         <ModsSubPath>\Duckov_Data\Mods</ModsSubPath>
         <ModsSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Mods</ModsSubPath>
-        <GameModsDir Condition="'$(GameModsDir)' == ''">$(GamePath)$(ModsSubPath)</GameModsDir>
+        <GameModsDir Condition="'$(GameModsDir)' == ''">$(GameDir)$(ModsSubPath)</GameModsDir>
     </PropertyGroup>
 
     <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
     <Target Name="DeployMod" AfterTargets="Build">
         <!-- invalid game path -->
-        <Error Condition="!Exists('$(GamePath)')" Text="'The mod build package can't find your game folder. Please pass it in your .csporj'" ContinueOnError="false"/>
+        <Error Condition="!Exists('$(GameDir)')" Text="'The mod build package can't find your game folder. Please pass it in your .csporj'" ContinueOnError="false"/>
 
         <DeployModTask
                 ModDllName="$(ModDllName)"
-                ModFolderName="$(ModFolderName)"
                 GameModsDir="$(GameModsDir)"
                 ProjectDir="$(MSBuildProjectDirectory)"
                 TargetDir="$(TargetDir)"
