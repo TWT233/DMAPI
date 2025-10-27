@@ -9,6 +9,10 @@ namespace DMAPI.ModBuildConfig;
 
 public class DeployModTask : Task
 {
+    /// <summary>Whether to enable auto deploy mod.</summary>
+    [Required]
+    public bool Enabled { get; set; } = true;
+
     /// <summary>The name (without extension or path) of the current mod's DLL.</summary>
     [Required]
     public string ModDllName { get; set; }
@@ -27,6 +31,13 @@ public class DeployModTask : Task
 
     public override bool Execute()
     {
+        if (!Enabled)
+        {
+            LogInfo("Deploy mod task is disabled, skip");
+            return true;
+        }
+
+        LogInfo("Deploy mod " + ModDllName + " to " + GameModsDir);
         try
         {
             // ensure target folder
@@ -41,6 +52,7 @@ public class DeployModTask : Task
 
             foreach (var (src, dst) in filePairs)
             {
+                LogInfo(src + " -> " + dst);
                 File.Copy(src, dst, true);
             }
         }
@@ -93,6 +105,6 @@ public class DeployModTask : Task
 
     private void LogInfo(string message, params object[] messageArgs)
     {
-        Log.LogMessage("[DMAPI][ModBuildConfig] " + message, messageArgs);
+        Log.LogMessage(MessageImportance.High, "[DMAPI][ModBuildConfig] " + message, messageArgs);
     }
 }

@@ -9,7 +9,7 @@
 
         <!--NuGet package-->
         <PackageId>TWT233.DMAPI.ModBuildConfig</PackageId>
-        <Version>0.0.9</Version>
+        <Version>0.0.10</Version>
         <Authors>TWT233</Authors>
         <Description>Easier modding life for Duckov</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>

@@ -18,11 +18,17 @@
 
     <!-- Deploy mod in the local game-->
     <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
+    <PropertyGroup>
+        <DeployModEnabled Condition="'$(DeployModEnabled)' == ''">true</DeployModEnabled>
+        <ModDllName Condition="'$(ModDllName)' == ''">$(TargetName)</ModDllName>
+        <ProjectDir Condition="'$(ProjectDir)' == ''">$(MSBuildProjectDirectory)</ProjectDir>
+    </PropertyGroup>
     <Target Name="DeployMod" AfterTargets="Build">
         <DeployModTask
-                ModDllName="$(TargetName)"
+                Enabled="$(DeployModEnabled)"
+                ModDllName="$(ModDllName)"
                 GameModsDir="$(GameModsDir)"
-                ProjectDir="$(MSBuildProjectDirectory)"
+                ProjectDir="$(ProjectDir)"
                 TargetDir="$(TargetDir)"
 
                 ContinueOnError="true"
