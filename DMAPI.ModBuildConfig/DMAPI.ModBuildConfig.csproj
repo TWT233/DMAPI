@@ -9,10 +9,9 @@
 
         <!--NuGet package-->
         <PackageId>TWT233.DMAPI.ModBuildConfig</PackageId>
-        <Title>Build package for Duckov mods</Title>
         <Version>0.0.9</Version>
         <Authors>TWT233</Authors>
-        <Description>Automates the configuration/building of Duckov mods.</Description>
+        <Description>Easier modding life for Duckov</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
