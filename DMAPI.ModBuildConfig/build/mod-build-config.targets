@@ -31,14 +31,13 @@
 
     <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
     <Target Name="DeployMod" AfterTargets="Build">
-        <!-- invalid game path -->
-        <Error Condition="!Exists('$(GameDir)')" Text="'The mod build package can't find your game folder. Please pass it in your .csporj'" ContinueOnError="false"/>
-
         <DeployModTask
                 ModDllName="$(ModDllName)"
                 GameModsDir="$(GameModsDir)"
                 ProjectDir="$(MSBuildProjectDirectory)"
                 TargetDir="$(TargetDir)"
+
+                ContinueOnError="true"
         />
     </Target>
 

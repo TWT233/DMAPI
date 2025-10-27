@@ -34,7 +34,10 @@ public class DeployModTask : Task
 
             var ok = GetFilesNeedCopy(out var filePairs);
             if (!ok)
+            {
+                LogErr("failed to get required file, skip deploy");
                 return false;
+            }
 
             foreach (var (src, dst) in filePairs)
             {
@@ -58,7 +61,7 @@ public class DeployModTask : Task
         var dllPath = Path.Combine(TargetDir, ModDllName + ".dll");
         if (!File.Exists(dllPath))
         {
-            LogErr(dllPath + " not found, can not deploy");
+            LogErr("missing " + dllPath + ", can not deploy");
             return false;
         }
 
@@ -67,7 +70,7 @@ public class DeployModTask : Task
         var iniPath = Path.Combine(ProjectDir, "info.ini");
         if (!File.Exists(iniPath))
         {
-            LogErr(iniPath + " not found, can not deploy");
+            LogErr("missing " + iniPath + ", can not deploy");
             return false;
         }
 
