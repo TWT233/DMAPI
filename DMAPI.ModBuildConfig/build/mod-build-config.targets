@@ -7,32 +7,7 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
-    <Import Project="derive-game-dirs.targets"/>
-
-    <!-- Add references to Duckov assemblies -->
-    <ItemGroup>
-        <Reference Include="$(GameDllDir)/TeamSoda.*"/>
-        <Reference Include="$(GameDllDir)/ItemStatsSystem.dll"/>
-        <Reference Include="$(GameDllDir)/Unity*"/>
-    </ItemGroup>
-
-    <!-- Deploy mod in the local game-->
-    <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
-    <PropertyGroup>
-        <DeployModEnabled Condition="'$(DeployModEnabled)' == ''">true</DeployModEnabled>
-        <ModDllName Condition="'$(ModDllName)' == ''">$(TargetName)</ModDllName>
-        <ProjectDir Condition="'$(ProjectDir)' == ''">$(MSBuildProjectDirectory)</ProjectDir>
-    </PropertyGroup>
-    <Target Name="DeployMod" AfterTargets="Build">
-        <DeployModTask
-                Enabled="$(DeployModEnabled)"
-                ModDllName="$(ModDllName)"
-                GameModsDir="$(GameModsDir)"
-                ProjectDir="$(ProjectDir)"
-                TargetDir="$(TargetDir)"
-
-                ContinueOnError="true"
-        />
-    </Target>
+    <Import Project="reference-dlls.targets" Condition="'$(IfndefReferenceDlls)' == ''"/>
+    <Import Project="deploy-build.targets" Condition="'$(IfndefDeployBuild)' == ''"/>
 
 </Project>

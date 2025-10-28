@@ -1,0 +1,30 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- ifndef -->
+    <PropertyGroup>
+        <IfndefReferenceDlls>true</IfndefReferenceDlls>
+    </PropertyGroup>
+
+    <!-- Common Properties-->
+    <PropertyGroup>
+        <!-- enable line numbers in stack traces (needs to embedded for Linux/macOS: https://github.com/dotnet/runtime/issues/39987) -->
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <Import Project="derive-game-dirs.targets"/>
+
+    <!-- Add references to Duckov assemblies -->
+    <ItemGroup>
+        <Reference Include="$(GameDllDir)/EPO*"/>
+        <Reference Include="$(GameDllDir)/FMODUnity*"/>
+        <Reference Include="$(GameDllDir)/FOW*"/>
+        <Reference Include="$(GameDllDir)/ItemStatsSystem.dll"/>
+        <Reference Include="$(GameDllDir)/LeTai*"/>
+        <Reference Include="$(GameDllDir)/SodaLocalization.dll"/>
+        <Reference Include="$(GameDllDir)/TeamSoda.*"/>
+        <Reference Include="$(GameDllDir)/UISplineRenderer.dll"/>
+        <Reference Include="$(GameDllDir)/Unity*"/>
+    </ItemGroup>
+
+</Project>

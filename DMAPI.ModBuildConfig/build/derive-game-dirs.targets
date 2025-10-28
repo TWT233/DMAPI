@@ -1,5 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+    <!-- ifndef -->
+    <PropertyGroup>
+        <IfndefDeriveGameDirs>true</IfndefDeriveGameDirs>
+    </PropertyGroup>
+
     <!-- Check OS -->
     <PropertyGroup>
         <OS Condition="$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))">Windows</OS>
@@ -31,7 +36,7 @@
         <_DllSubPath Condition="$(OS) == 'OSX'">/Duckov.app/Contents/Resources/Data/Managed</_DllSubPath>
         <GameDllDir Condition="!Exists('$(GameDllDir)')">$(GameDir)$(_DllSubPath)</GameDllDir>
     </PropertyGroup>
-    
+
     <!-- Derive mod dir -->
     <PropertyGroup>
         <_ModsSubPath>\Duckov_Data\Mods</_ModsSubPath>

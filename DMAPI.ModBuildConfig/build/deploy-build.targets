@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- ifndef -->
+    <PropertyGroup>
+        <IfndefDeployBuild>true</IfndefDeployBuild>
+    </PropertyGroup>
+
+    <!-- Common Properties-->
+    <PropertyGroup>
+        <!-- enable line numbers in stack traces (needs to embedded for Linux/macOS: https://github.com/dotnet/runtime/issues/39987) -->
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <Import Project="derive-game-dirs.targets"/>
+
+    <!-- Deploy mod in the local game-->
+    <UsingTask TaskName="DeployModTask" AssemblyFile="DMAPI.ModBuildConfig.dll"/>
+    <PropertyGroup>
+        <DeployModEnabled Condition="'$(DeployModEnabled)' == ''">true</DeployModEnabled>
+        <ModDllName Condition="'$(ModDllName)' == ''">$(TargetName)</ModDllName>
+        <ProjectDir Condition="'$(ProjectDir)' == ''">$(MSBuildProjectDirectory)</ProjectDir>
+    </PropertyGroup>
+    <Target Name="DeployMod" AfterTargets="Build">
+        <DeployModTask
+                Enabled="$(DeployModEnabled)"
+                ModDllName="$(ModDllName)"
+                GameModsDir="$(GameModsDir)"
+                ProjectDir="$(ProjectDir)"
+                TargetDir="$(TargetDir)"
+
+                ContinueOnError="true"
+        />
+    </Target>
+
+</Project>
