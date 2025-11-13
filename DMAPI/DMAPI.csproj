@@ -3,6 +3,33 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
+        <RestoreSources>$(RestoreSources);C:\Users\TWT23\RiderProjects\DMAPI\DMAPI.ModBuildConfig\bin\Debug\;https://api.nuget.org/v3/index.json</RestoreSources>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
+
+    <ItemGroup>
+        <PackageReference Include="TWT233.DMAPI.ModBuildConfig" Version="0.0.11"/>
+    </ItemGroup>
+
+
+    <PropertyGroup>
+        <RootNamespace>DMAPI</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+
+        <!--NuGet package-->
+        <PackageId>TWT233.DMAPI</PackageId>
+        <Version>0.0.1</Version>
+        <Authors>TWT233</Authors>
+        <Description>Easier modding life for Duckov</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <IncludeSymbols>true</IncludeSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None PackagePath="lib\$(TargetFramework)\DMAPI.dll" Include="$(OutputPath)\$(AssemblyName).dll" Pack="true"/>
+    </ItemGroup>
 </Project>

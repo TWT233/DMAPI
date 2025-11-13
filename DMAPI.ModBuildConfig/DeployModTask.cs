@@ -90,9 +90,7 @@ public class DeployModTask : Task
 
         var previewPath = Path.Combine(ProjectDir, "preview.png");
         if (File.Exists(previewPath)) // optional file
-        {
             filePairs = filePairs.Append((previewPath, Path.Combine(dstDir, "preview.png")));
-        }
 
         return true;
     }

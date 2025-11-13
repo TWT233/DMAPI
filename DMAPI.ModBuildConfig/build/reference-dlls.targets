@@ -12,7 +12,7 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
-    <Import Project="derive-game-dirs.targets"/>
+    <Import Project="derive-game-dirs.targets" Condition="$(IfndefDeriveGameDirs) == ''"/>
 
     <!-- Add references to Duckov assemblies -->
     <ItemGroup>
